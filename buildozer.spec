@@ -1,22 +1,18 @@
 [app]
 title = Uzay Savasi Pro
 package.name = uzaysavasi
-package.domain = org.test
-
-# Ana dosyanın adı
+package.domain = org.uzay
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
+version = 0.1
+requirements = python3,pygame,kivy
 
-# Gereksinimler (Pygame mutlaka olmalı)
-requirements = python3,pygame
-
-# Android API ayarları (Hata aldığın kısım burasıydı)
+# ANDROID AYARLARI (GitHub'da takılmaması için)
 android.api = 33
 android.minapi = 21
 android.ndk = 25b
-android.archs = arm64-v8a, armeabi-v7a
+android.archs = arm64-v8a
 
-# Ekran ayarları
+# EKRAN
 orientation = landscape
 fullscreen = 1
-android.presplash_color = #0A0F23
