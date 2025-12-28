@@ -5,27 +5,36 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 # v4'e güncellendi
+      - name: Kodlari Cek
+        uses: actions/checkout@v4
 
       - name: Python Kurulumu
-        uses: actions/setup-python@v5 # v5'e güncellendi
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Gerekli Bagimliliklari Kur
+      - name: Gerekli Sistem Paketlerini Kur
         run: |
           sudo apt update
           sudo apt install -y build-essential git python3-dev ffmpeg libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev libsqlite3-dev sqlite3 bzip2 libbz2-dev libreadline-dev libffi-dev libssl-dev
           pip install --upgrade pip
           pip install buildozer cython==0.29.33 setuptools
 
+      - name: Android SDK ve AIDL Ayarlarini Yap
+        run: |
+          # Bu kısım AIDL hatasını çözmek için gerekli olan lisans onaylarını yapar
+          mkdir -p ~/.android
+          touch ~/.android/repositories.cfg
+          # Buildozer'ın SDK'yı kuracağı yeri netleştiriyoruz
+          export ANDROID_HOME=$HOME/.buildozer/android/platform/android-sdk
+
       - name: Buildozer ile APK Hazirla
         run: |
-          buildozer android debug
-        # Hata alırsak daha detaylı görebilmek için logları açık tutuyoruz
-
-      - name: APK Dosyasini Yukle
-        uses: actions/upload-artifact@v4 # v4'e güncellendi
+          # 'yes' komutu Buildozer'ın sorduğu tüm (y/n) sorularına otomatik 'evet' der
+          yes | buildozer android debug
+        
+      - name: APK Dosyasini Yukle (Download Linki Olustur)
+        uses: actions/upload-artifact@v4
         with:
           name: VoidRunner-APK
           path: bin/*.apk
