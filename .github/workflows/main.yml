@@ -1,0 +1,20 @@
+name: APK Yapici
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Buildozer ile APK Hazirla
+        uses: ArtemSerebrennikov/buildozer-action@v1
+        with:
+          command: buildozer android debug
+          buildozer_version: master
+
+      - name: APK Dosyasini Yukle
+        uses: actions/upload-artifact@v3
+        with:
+          name: VoidRunner-APK
+          path: bin/*.apk
