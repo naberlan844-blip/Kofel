@@ -1,42 +1,33 @@
 [app]
-# Oyunun adı
+# Oyun Bilgileri
 title = Void Runner
-
-# Paket adı (boşluksuz, küçük harf)
 package.name = voidrunner
-
-# Kurum adı
 package.domain = org.test
-
-# Ana kodun olduğu yer (Genelde aynı klasör olur)
 source.dir = .
-
-# Dahil edilecek dosya uzantıları
 source.include_exts = py,png,jpg,txt,ttf
+version = 1.1
 
-# Versiyon
-version = 1.0
-
-# GEREKSİNİMLER (En önemli kısım burasıdır)
+# Gereksinimler (Pygame mutlaka ekli olmalı)
 requirements = python3,pygame
 
-# Ekran yönü (Dikey oyun olduğu için portrait)
+# Ekran Ayarları
 orientation = portrait
-
-# Tam ekran olsun mu?
 fullscreen = 1
 
-# Android API seviyesi (Genelde 31 veya 33 idealdir)
+# Android Ayarları (Hata almamak için sabitlendi)
 android.api = 31
 android.minapi = 21
-
-# APK'nın mimarisi (Çoğu telefon için armeabi-v7a ve arm64-v8a)
+android.sdk = 31
+android.build_tools_version = 31.0.0
+android.ndk = 25b
 android.archs = arm64-v8a, armeabi-v7a
 
-# Logcat kontrolü (Hata ayıklama için)
+# --- KRİTİK AYARLAR ---
+# Lisansları otomatik kabul et (AIDL hatasını önler)
+android.accept_sdk_license = True
+# Log seviyesini yükselt (Hata olursa anlamamızı sağlar)
 log_level = 2
 
 [buildozer]
-# Log seviyesi
 log_level = 2
 warn_on_root = 1
